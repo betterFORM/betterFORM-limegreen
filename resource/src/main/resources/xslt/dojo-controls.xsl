@@ -488,6 +488,9 @@
     	       		<xsl:when test="xforms:copy">
 	    	   			<xsl:attribute name="value" select="xforms:copy/@id"/>
 	              		<xsl:attribute name="title" select="''"/>
+                        <!-- MERGETODO: check which is the right version -->
+                        <!-- DropDownDate: -->
+                        <!-- <xsl:attribute name="title" select="xforms:copy/@id"/> -->
     	          	</xsl:when>
         	      	<xsl:otherwise>
             	   		<xsl:attribute name="value" select="normalize-space(xforms:value)"/>
