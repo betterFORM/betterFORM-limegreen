@@ -45,7 +45,7 @@
                    [4] if above not present use accept-language header sent by browser
                -->
         <property name="preselect-language" value="en"/>
-        <property name="enable.l10n" value="true"/>
+        <property name="enable.l10n" value="false"/>
 
         <!--
            Property the XForms filter listens on, only if the pattern is present on the accept header

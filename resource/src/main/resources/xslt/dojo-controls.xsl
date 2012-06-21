@@ -129,22 +129,19 @@
                     </xsl:when>
                     <!-- Standard Minimal Select -->
                     <xsl:otherwise>
-                        <span class="select1wrapper">
-                            <select id="{$id}-value"
-                                    name="{$name}"
-                                    class="xfValue"
-                                    dataType="{$datatype}"
-                                    controlType="select1ComboBox"
-                                    title=""
-                                    tabindex="{$navindex}"
-                                    schemaValue="{bf:data/@bf:schema-value}"
-                                    incremental="{$incremental}">
-                                <xsl:call-template name="build-items">
-                                    <xsl:with-param name="parent" select="$parent"/>
-                                    <xsl:with-param name="appearance" select="$appearance"/>
-                                </xsl:call-template>
-                            </select>
-                        </span>
+                        <select id="{$id}-value"
+                                name="{$name}"
+                                class="xfValue"
+                                dataType="{$datatype}"
+                                controlType="select1ComboBox"
+                                title=""
+                                tabindex="{$navindex}"
+                                schemaValue="{bf:data/@bf:schema-value}"
+                                incremental="{$incremental}">
+                            <xsl:call-template name="build-items">
+                                <xsl:with-param name="parent" select="$parent"/>
+                            </xsl:call-template>
+                        </select>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
@@ -519,6 +516,9 @@
     	       		<xsl:when test="xforms:copy">
 	    	   			<xsl:attribute name="value" select="xforms:copy/@id"/>
 	              		<xsl:attribute name="title" select="''"/>
+                        <!-- MERGETODO: check which is the right version -->
+                        <!-- DropDownDate: -->
+                        <!-- <xsl:attribute name="title" select="xforms:copy/@id"/> -->
     	          	</xsl:when>
         	      	<xsl:otherwise>
             	   		<xsl:attribute name="value" select="normalize-space(xforms:value)"/>

@@ -595,6 +595,7 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
                             case "betterform-render-message"     : fluxProcessor._handleBetterFormRenderMessage(xmlEvent); break;
                             case "betterform-replace-all"        : fluxProcessor._handleBetterFormReplaceAll(); break;
                             case "betterform-state-changed"      : fluxProcessor._handleBetterFormStateChanged(xmlEvent); break;
+                            case "betterform-item-changed"      : fluxProcessor._handleBetterFormStateChanged(xmlEvent); break;
                             case "betterform-dialog-open"        : fluxProcessor._handleBetterFormDialogOpen(xmlEvent); break;
                             case "betterform-dialog-close"       : fluxProcessor._handleBetterFormDialogClose(xmlEvent); break;
                             case "betterform-AVT-changed"        : fluxProcessor._handleAVTChanged(xmlEvent);break;
@@ -957,7 +958,7 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
         }
 
         var externalStyleList = document.getElementsByTagName("link");
-        console.debug("styleList" , externalStyleList);
+        console.debug("prepare unloading of styles:" , externalStyleList);
         if (externalStyleList != undefined) {
         dojo.forEach(externalStyleList, function(item) {
                 //console.debug("style: ", item);
