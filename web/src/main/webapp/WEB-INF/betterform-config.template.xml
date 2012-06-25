@@ -11,7 +11,7 @@
         <property name="xforms.schema" value="XFormsDatatypes11.xsd"
                   description="XForms Schema holding Simple Type Declarations"/>
 
-        <property name="initLogging" value="true" description="'true' if logging should be initialized by betterform, false otherwise"/>
+        <property name="initLogging" value="@INIT_LOGGING@" description="'true' if logging should be initialized by betterform, false otherwise"/>
 
         <property name="log4j.file" value="WEB-INF/log4j.xml"
                   description="the location of the log4j configuration file relative to context"/>
@@ -94,22 +94,22 @@
        <!-- <property name="betterform.ui.initializeDeselectedCases" value="true"/>-->
 
         <!-- generate default alert Elements for UI controls. default is false -->
-        <property name="betterform.ui.generateDefaultAlerts" value="false"/>
+        <property name="betterform.ui.generateDefaultAlerts" value="@DEFAULT_ALERT@"/>
 
         <!--
             allows the define the default error-message for automatically generated alert elements.
         -->
         <property name="betterform.ui.defaultAlertText" value="The specified value is invalid"/>
 
-        <property name="betterform.debug-allowed" value="false" description="if true enables debug bar and event log viewer"/>
+        <property name="betterform.debug-allowed" value="@DEBUG_COMPONENTS@" description="if true enables debug bar and event log viewer"/>
 
         <property name="betterform.unloading-message" value="You are about to leave this XForms application" description="Set message which is shown to user if unsaved form is left."/>
 
         <!-- WARNING: not ready for production use -->
-        <property name="betterform.event-optimization-enabled" value="true" description="TBD: if event optimization is enabled, only events present within the current form will be processed"/>
+        <property name="betterform.event-optimization-enabled" value="@EVENT_OPTIMIZATION@" description="TBD: if event optimization is enabled, only events present within the current form will be processed"/>
 
-        <property name="webprocessor.doIncludes" value="false" description="if true the incoming XForms will be scanned for bf:include tags and transformed accordingly"/>
-        <property name="admin.mail" value="foo@bar.de" description="a mail address to report problems and errors with forms"/>
+        <property name="webprocessor.doIncludes" value="@INCLUDES@" description="if true the incoming XForms will be scanned for bf:include tags and transformed accordingly"/>
+        <property name="admin.mail" value="@MAIL_ADMIN@" description="a mail address to report problems and errors with forms"/>
 
         <!--
              Full classpath of SSLProtocolSocketFactory which should be used by httpclient.

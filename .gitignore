@@ -20,8 +20,9 @@ version.info
 
 ## directories to ignore
 .svn
-**/target/*
-**/target-utils/*
+target/
+target-utils/*
+temp/
 ##Ignore generated Java-Tests
 web/src/test/java/de/betterfrom/conformance/xf11/*
 

@@ -7,13 +7,13 @@
 <installation version="1.0">
     <info>
         <appname>betterFORM</appname>
-        <appversion>limegreen</appversion>
+        <appversion>@APP_VERSION_NAME@</appversion>
         <authors>
                  <author email="info@betterform.de" name="betterFORM"/>
         </authors>
         <url>http://www.betterform.de</url>
         <uninstaller name="Uninstaller.jar" write="yes"/>
-        <javaversion>1.6</javaversion>
+        <javaversion>@JAVA_VERSION@</javaversion>
         <pack200/>
         <run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7"/>
         <webdir>http://www.betterform.de/packs</webdir>
@@ -81,7 +81,7 @@
     <variables>
         <!-- <variable name="JETTY_HOME" value="$EXIST_HOME/tools/jetty"/> -->
         <variable name="JDKPathPanel.skipIfValid" value="yes"/>
-        <variable name="JDKPathPanel.minVersion" value="1.6"/>
+        <variable name="JDKPathPanel.minVersion" value="@JAVA_VERSION@"/>
     </variables>
 
 <!--

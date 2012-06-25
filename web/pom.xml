@@ -6,13 +6,16 @@
     <parent>
         <groupId>de.betterform</groupId>
         <artifactId>betterform-project</artifactId>
-        <version>4.1</version>
+        <version>4.x</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.betterform</groupId>
     <artifactId>betterform</artifactId>
-    <version>4.1</version>
+    <version>
+            limegreen
+            4.x
+        </version>
 
 
 
@@ -98,7 +101,7 @@
 <dependency>
 <groupId>de.betterform</groupId>
 <artifactId>betterform-core</artifactId>
-<version>4.1</version>
+<version>4.x</version>
 </dependency>
 <dependency>
 <groupId>org.directwebremoting.dwr</groupId>
@@ -258,7 +261,7 @@
 <dependency>
 <groupId>org.seleniumhq.selenium</groupId>
 <artifactId>operadriver</artifactId>
-<version>v0.14</version>
+<version>0.14</version>
 <scope>test</scope>
 </dependency>
 <dependency>
