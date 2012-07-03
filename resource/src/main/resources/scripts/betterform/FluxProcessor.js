@@ -595,6 +595,7 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
                             case "betterform-render-message"     : fluxProcessor._handleBetterFormRenderMessage(xmlEvent); break;
                             case "betterform-replace-all"        : fluxProcessor._handleBetterFormReplaceAll(); break;
                             case "betterform-state-changed"      : fluxProcessor._handleBetterFormStateChanged(xmlEvent); break;
+                            case "betterform-item-changed"      : fluxProcessor._handleBetterFormStateChanged(xmlEvent); break;
                             case "betterform-dialog-open"        : fluxProcessor._handleBetterFormDialogOpen(xmlEvent); break;
                             case "betterform-dialog-close"       : fluxProcessor._handleBetterFormDialogClose(xmlEvent); break;
                             case "betterform-AVT-changed"        : fluxProcessor._handleAVTChanged(xmlEvent);break;
@@ -658,7 +659,11 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
     },
 
     _handleAVTChanged:function(xmlEvent){
-        dojo.attr(xmlEvent.contextInfo.targetId,xmlEvent.contextInfo.attribute,xmlEvent.contextInfo.value);
+        if (dojo.byId(xmlEvent.contextInfo.targetId) != undefined) {
+            dojo.attr(xmlEvent.contextInfo.targetId,xmlEvent.contextInfo.attribute,xmlEvent.contextInfo.value);
+        } else {
+            console.warn("_handleAVTChanged: Control with id: " + xmlEvent.contextInfo.targetId + " not found");
+        }
     },
 
     _handleInstanceCreated:function(xmlEvent){
@@ -749,7 +754,7 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
         dojo.query(".xfRequired", dojo.doc).forEach(function(control) {
             //if control has no value add CSS class xfRequiredEmpty
             var xfControl = dijit.byId(control.id);
-            if(xfControl != undefined && xfControl.getControlValue === 'function'){
+            if(xfControl != undefined && typeof xfControl.getControlValue === 'function'){
                 var xfValue = xfControl.getControlValue();
                 if(xfValue == undefined || xfValue == ''){
                     dojo.addClass(xfControl.domNode,"xfRequiredEmpty");
@@ -953,7 +958,7 @@ dojo.declare("betterform.FluxProcessor", betterform.XFormsProcessor,
         }
 
         var externalStyleList = document.getElementsByTagName("link");
-        console.debug("styleList" , externalStyleList);
+        console.debug("prepare unloading of styles:" , externalStyleList);
         if (externalStyleList != undefined) {
         dojo.forEach(externalStyleList, function(item) {
                 //console.debug("style: ", item);

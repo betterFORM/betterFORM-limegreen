@@ -168,20 +168,23 @@
             priority="20">
         <xsl:variable name="id" select="@id"/>
         <xsl:variable name="control-classes">
-            <xsl:call-template name="assemble-control-classes"/>
+            <xsl:call-template name="assemble-control-classes">
+                <xsl:with-param name="appearance" select="@appearance"/>
+            </xsl:call-template>
         </xsl:variable>
 
-        <xsl:variable name="htmlElem">
-            <xsl:choose>
-                <xsl:when test="local-name()='output'">span</xsl:when>
-                <xsl:otherwise>div</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <!--
+                <xsl:variable name="htmlElem">
+                    <xsl:choose>
+                        <xsl:when test="local-name()='output'">span</xsl:when>
+                        <xsl:otherwise>div</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+        -->
 
-        <xsl:element name="{$htmlElem}">
+        <xsl:element name="span">
             <xsl:attribute name="id" select="$id"/>
-            <xsl:attribute name="class" select="concat($control-classes,' xfRepeated')"/>
-            <xsl:attribute name="controlType" select="local-name()"/>
+            <xsl:attribute name="class" select="concat(substring-after($control-classes,'xfControl'),' xfRepeated bfPrototype')"/>
             <xsl:attribute name="appearance" select="@appearance"/>
             <xsl:attribute name="title" select="normalize-space(xf:hint)"/>
 
@@ -195,21 +198,12 @@
             </label>
 
             <!--<xsl:apply-templates select="xf:alert"/>-->
-            <xsl:choose>
-                <xsl:when test="'select' = local-name()">
-                    <xsl:call-template name="select"/>
-                    <!--<xsl:apply-templates select="xf:alert"/>-->
-                </xsl:when>
-                <xsl:when test="'select1' = local-name()">
-                    <xsl:call-template name="select1"/>
-                    <!--<xsl:apply-templates select="xf:alert"/>-->
-                </xsl:when>
-            </xsl:choose>
-
-            <xsl:apply-templates select="xf:alert"/>
-            <xsl:apply-templates select="xf:hint"/>
-            <xsl:apply-templates select="xf:help"/>
-
+            <span class="widgetContainer">
+                <xsl:call-template name="buildControl"/>
+                <xsl:apply-templates select="xf:alert"/>
+                <xsl:apply-templates select="xf:hint"/>
+                <xsl:apply-templates select="xf:help"/>
+            </span>
         </xsl:element>
     </xsl:template>
 
@@ -218,7 +212,9 @@
                   priority="10">
         <xsl:variable name="id" select="@id"/>
         <xsl:variable name="control-classes">
-            <xsl:call-template name="assemble-control-classes"/>
+            <xsl:call-template name="assemble-control-classes">
+                <xsl:with-param name="appearance" select="@appearance"/>
+            </xsl:call-template>
         </xsl:variable>
 
         <div id="{$id}" class="{$control-classes} xfRepeated" appearance="{@appearance}" repeatId="{$id}">
@@ -315,7 +311,9 @@
         </xsl:variable>
 
         <xsl:variable name="control-classes">
-            <xsl:call-template name="assemble-control-classes"/>
+            <xsl:call-template name="assemble-control-classes">
+                <xsl:with-param name="appearance" select="@appearance"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="exists(@ref) or exists(@bind)">
@@ -596,8 +594,8 @@
 
         <xsl:element name="{$htmlElem}">
             <xsl:attribute name="id" select="$id"/>
-            <xsl:attribute name="class" select="concat($control-classes,' xfRepeated')"/>
-            <xsl:attribute name="controlType" select="local-name()"/>
+            <!--<xsl:attribute name="class" select="concat($control-classes,' xfRepeated')"/>-->
+            <xsl:attribute name="class" select="concat(substring-after($control-classes,'xfControl'),' xfRepeated bfPrototype')"/>
             <xsl:attribute name="appearance" select="@appearance"/>
             <xsl:if test="$incrementaldelay ne 'undef'">
                 <xsl:message>
@@ -608,21 +606,16 @@
 
             <xsl:call-template name="copy-style-attribute"/>
 
-            <xsl:choose>
-                <xsl:when test="exists(@mediatype)">
-                    <xsl:attribute name="mediatype" select="@mediatype"/>
-                </xsl:when>
-                <xsl:when test="'select' = local-name()">
-                    <xsl:call-template name="select"/>
-                </xsl:when>
-                <xsl:when test="'select1' = local-name()">
-                    <xsl:call-template name="select1"/>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:apply-templates select="xf:alert"/>
-            <xsl:apply-templates select="xf:hint"/>
-            <xsl:apply-templates select="xf:help"/>
+            <xsl:if test="exists(@mediatype)">
+                <xsl:attribute name="mediatype" select="@mediatype"/>
+            </xsl:if>
 
+            <span class="widgetContainer">
+                <xsl:call-template name="buildControl"/>
+                <xsl:apply-templates select="xf:alert"/>
+                <xsl:apply-templates select="xf:hint"/>
+                <xsl:apply-templates select="xf:help"/>
+            </span>
         </xsl:element>
 
     </xsl:template>
@@ -764,12 +757,12 @@
                     <xsl:with-param name="label-elements" select="xf:label"/>
                 </xsl:call-template>
             </label>
-
-            <xsl:call-template name="buildControl"/>
-            <xsl:apply-templates select="xf:alert"/>
-            <xsl:apply-templates select="xf:hint"/>
-            <xsl:apply-templates select="xf:help"/>
-
+            <span class="widgetContainer">
+                <xsl:call-template name="buildControl"/>
+                <xsl:apply-templates select="xf:alert"/>
+                <xsl:apply-templates select="xf:hint"/>
+                <xsl:apply-templates select="xf:help"/>
+            </span>
 
         </div>
     </xsl:template>

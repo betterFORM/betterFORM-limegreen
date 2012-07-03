@@ -4,29 +4,74 @@
   -->
 
 <root>
+    <app>
+        <name>betterform</name>
+        <version>
+            <name>limegreen</name>
+            <number>4.x</number>
+        </version>
+    </app>
     <properties>
-        <!-- path to forms for modules (actual: src/main/xforms src/main/html)-->
-        <rootDir>..</rootDir>
-        <!-- optional variable if user wants to deploy betterform to a different path-->
-        <webappPath>/Applications/apache-tomcat-5.5.26/webapps</webappPath>
         <javac>
             <deprecation>off</deprecation>
             <debug>on</debug>
             <optimize>off</optimize>
-            <version>1.5</version>
+            <version>1.6</version>
         </javac>
+
         <dojo>dojo-release-1.6.1-src</dojo>
         <timeline>timeline_libraries_v2.3.0</timeline>
         <syntaxhighlighter>syntaxhighlighter_3.0.83</syntaxhighlighter>
+        <antversion>1.8.2</antversion>
     </properties>
-    <app>
-        <name>betterform</name>
-        <version>4.1</version>
-    </app>
+
+    <config>
+        <!--+ web.xml configuration
+            +   caching: enables caching of all resources served by the ResourceServlet (scripts / css / images)
+            +   debugDWR: enable / disable dwr logging
+        -->
+        <webinf>
+            <caching>false</caching>
+            <debugDWR>false</debugDWR>
+        </webinf>
+        <!--+ betterform-config configuration
+            +   generateDefaultAlerts: if enabled default alerts are generated for all ui controls
+            +   debugComponents: enables the betterform debug bar and event logger
+            +   enableEventOptimization if enabled, only events present within the current form are processed
+            +   initLogging if set to false logging is not enabled at all
+            +   doIncludes: if enabled forms are scanned for bf:include tags and transformed accordingly
+            +   mailadmin: email address of the Server Admin
+        -->
+        <bfconfig>
+            <generateDefaultAlerts>false</generateDefaultAlerts>
+            <debugComponents>true</debugComponents>
+            <enableEventOptimization>true</enableEventOptimization>
+            <initLogging>true</initLogging>
+            <doIncludes>false</doIncludes>
+            <mailadmin>foo@bar.de</mailadmin>
+        </bfconfig>
+        <!--+ log4j.xml Configuration
+            +   appender: log4j appender, decides where the log output goes to
+            +           possible values are: 'SHELL' or 'ROLLING_FILE'
+            +   loglevel define log levels for root,betterform,ehcache and drw
+            +           common log levels are: 'DEBUG', 'INFO', 'WARN','DEBUG','TRACE'
+        -->
+        <log4j>
+            <appender>SHELL</appender>
+            <loglevel>
+                <root>ERROR</root>
+                <betterform>DEBUG</betterform>
+                <ehcache>ERROR</ehcache>
+                <dwr>ERROR</dwr>
+            </loglevel>
+        </log4j>
+    </config>
+    <!-- release properties -->
+
     <core>
         <app>
             <name>betterform-core</name>
-            <version>4.1</version>
+            <version>4.x</version>
         </app>
         <transform>
             <classpath pathid="transform.class.path" description="classpath for saxon XPath and XSLT engine">
@@ -65,15 +110,9 @@
                 <pathelement location="${core.dir}/src/main/lib/xmlrpc-common-3.1.2.jar" groupid="org.apache.xmlrpc" version="3.1.2" artifactId="xmlrpc-common"/>
                 <pathelement location="${core.dir}/src/main/lib/xmlrpc-client-3.1.2.jar" groupid="org.apache.xmlrpc" version="3.1.2" artifactId="xmlrpc-client"/>
                 <pathelement location="${core.dir}/src/main/lib/xmlrpc-server-3.1.2.jar" groupid="org.apache.xmlrpc" version="3.1.2" artifactId="xmlrpc-server"/>
-                <pathelement location="${core.dir}/src/main/lib/ehcache-1.6.2.jar" groupid="net.sf.ehcache" version="1.6.2" artifactId="ehcache"/>
+                <pathelement location="${core.dir}/src/main/lib/ehcache-core-2.5.2.jar" groupid="net.sf.ehcache" version="2.5.2" artifactId="ehcache-core"/>
+                <pathelement location="${core.dir}/src/main/lib/slf4j-api-1.6.1.jar" groupid="org.slf4j" version="1.6.1" artifactId="slf4j-api"/>
                 <pathelement location="${core.dir}/src/main/lib/ant-1.8.2.jar" groupid="org.apache.ant" version="1.8.2" artifactId="ant"/>
-
-                <!--
-                <pathelement location="${core.dir}/../tools/AppEngine/GAE.jar"
-                             groupid="GoogleAppEngine" version="0.0.1"
-                             artifactId="gae"/>
-                             -->
-
             </classpath>
         </compile>
         <test>
@@ -89,7 +128,7 @@
     <web>
         <app>
             <name>betterform</name>
-            <version>4.1</version>
+            <version>4.x</version>
         </app>
         <transform>
             <classpath pathid="transform2.class.path" description="classpath for saxon XPath and XSLT engine">
@@ -112,7 +151,6 @@
               <url-to-test-forms>/betterform/forms</url-to-test-forms>
               <!--server properties -->
               <server>
-<!--                <jar>${basedir}/src/main/lib/selenium-server-1.0.1.jar</jar> -->
                 <jar>${basedir}/src/main/lib/selenium/selenium-server-standalone-2.0a5.jar</jar>
                 <host>localhost</host>
                 <port>4444</port>
@@ -143,8 +181,8 @@
                              groupid="org.seleniumhq.selenium" version="1.3.0" artifactId="bsh"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/cglib-nodep-2.1_3.jar"
                              groupid="org.seleniumhq.selenium" version="2.1_3" artifactId="cglib-nodep"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/commons-codec-1.4.jar"
-                             groupid="org.seleniumhq.selenium" version="1.4" artifactId="commons-codec"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/commons-codec-1.6.jar"
+                             groupid="org.seleniumhq.selenium" version="1.6" artifactId="commons-codec"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/commons-collections-3.2.1.jar"
                              groupid="org.seleniumhq.selenium" version="3.2.1" artifactId="commons-collection"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/commons-exec-1.1.jar"
@@ -157,20 +195,22 @@
                              groupid="org.seleniumhq.selenium" version="1.1.1" artifactId="commons-logging"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/cssparser-0.9.5.jar"
                              groupid="org.seleniumhq.selenium" version="0.9.5" artifactId="cssparser"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/guava-10.0.1.jar"
-                             groupid="org.seleniumhq.selenium" version="10.0.1" artifactId="guava"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/hamcrest-all-1.1.jar"
-                             groupid="org.seleniumhq.selenium" version="1.1" artifactId="hamcrest-all"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/guava-12.0.jar"
+                             groupid="org.seleniumhq.selenium" version="12.0" artifactId="guava"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/hamcrest-core-1.1.jar"
+                             groupid="org.seleniumhq.selenium" version="1.1" artifactId="hamcrest-core"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/hamcrest-library-1.1.jar"
+                             groupid="org.seleniumhq.selenium" version="1.1" artifactId="hamcrest-library"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/htmlunit-2.9.jar"
                              groupid="org.seleniumhq.selenium" version="2.9" artifactId="htmlunit"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/htmlunit-core-js-2.9.jar"
                              groupid="org.seleniumhq.selenium" version="2.9" artifactId="htmlunit-core-js"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/httpclient-4.1.2.jar"
-                             groupid="org.seleniumhq.selenium" version="4.1.2" artifactId="httpclient"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/httpclient-4.1.3.jar"
+                             groupid="org.seleniumhq.selenium" version="4.1.3" artifactId="httpclient"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/httpcore-4.1.3.jar"
                              groupid="org.seleniumhq.selenium" version="4.1.3" artifactId="httpcore"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/httpmime-4.1.2.jar"
-                             groupid="org.seleniumhq.selenium" version="4.1.2" artifactId="httpmime"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/httpmime-4.1.3.jar"
+                             groupid="org.seleniumhq.selenium" version="4.1.3" artifactId="httpmime"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/jcommander-1.13.jar"
                              groupid="org.seleniumhq.selenium" version="1.13" artifactId="jcommander"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/jna-3.4.0.jar"
@@ -181,18 +221,20 @@
                              groupid="org.seleniumhq.selenium" version="20080701" artifactId="json"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/junit-dep-4.10.jar"
                              groupid="org.seleniumhq.selenium" version="4.10" artifactId="junit-dep"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/operadriver-v0.8.1.jar"
-                             groupid="org.seleniumhq.selenium" version="v0.8.1" artifactId="operadriver"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/operadriver-0.14.jar"
+                             groupid="org.seleniumhq.selenium" version="0.14" artifactId="operadriver"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/protobuf-java-2.4.1.jar"
                              groupid="org.seleniumhq.selenium" version="2.4.1" artifactId="protobuf-java"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/sac-1.3.jar"
                              groupid="org.seleniumhq.selenium" version="1.3" artifactId="sac"/>
-                <pathelement scope="test" location="${web.dir}/src/test/lib/selenium-java-2.16.1.jar"
-                             groupid="org.seleniumhq.selenium" version="2.16.1" artifactId="selenium-java"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/selenium-java-2.24.1.jar"
+                             groupid="org.seleniumhq.selenium" version="2.24.1" artifactId="selenium-java"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/serializer-2.7.1.jar"
                              groupid="org.seleniumhq.selenium" version="2.7.1" artifactId="serializer"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/testng-6.0.1-nobsh-noguice.jar"
                              groupid="org.seleniumhq.selenium" version="6.0.1-nobsh-noguice" artifactId="testng"/>
+                <pathelement scope="test" location="${web.dir}/src/test/lib/webbit-0.4.8-SNAPSHOT.jar"
+                             groupid="org.seleniumhq.selenium" version="0.4.8-SNAPSHOT" artifactId="webbit"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/xalan-2.7.1.jar"
                              groupid="org.seleniumhq.selenium" version="2.7.1" artifactId="xalan"/>
                 <pathelement scope="test" location="${web.dir}/src/test/lib/xercesImpl-2.9.1.jar"
@@ -240,54 +282,16 @@
             <version>1.0</version>
         </app>
     </xapp>
-    <gae>
-        <compile>
-            <classpath pathid="gae.class.path" description="classpath for compiling web classes">
-                <path refid="web.class.path"/>
-                <pathelement location="${gae.dir}/lib/appengine-api.jar" groupid="google-appengine"
-                             version="1.4.2" artifactId="gae"/>
-                <pathelement path="${gae.dir}/target/classes"/>
 
-            </classpath>
-        </compile>
-
-    </gae>
-
-    <!-- TODO: check if needed
-    <webtest>
-        <server>http://localhost:8080</server>
-        <url>/betterform/forms</url>
-    </webtest>
-    -->
     <installer>
         <!-- ### installerType must be either 'standard' or 'web'. Default value is 'web' ### -->
         <installerType>standard</installerType>
-        <exist>
-            <version>1.4</version>
-        </exist>
-        <compile>
-            <classpath pathid="installer.class.path" description="classpath for compiling installer classes">
-                <!-- Use libs provided by eXist Installer -->
-                <!--
-                <pathelement location="${installer.dir}/src/main/lib/exist-1.4.jar" groupid="org.exist" version="1.4"
-                             artifactId="exist"/>
-                <pathelement location="${installer.dir}/src/main/lib/xmldb.jar" groupid="org.xmldb" version="11112001"
-                             artifactId="xmldb"/>
-                -->
-                <pathelement location="${installer.dir}/target/bf-XRX/exist.jar" groupid="org.exist" version="1.4" artifactId="exist"/>
-                <pathelement location="${installer.dir}/target/bf-XRX/lib/core/xmldb.jar" groupid="org.xmldb" version="11112001" artifactId="xmldb"/>
-            </classpath>
-        </compile>
-        <izPack>
-            <dir>/opt/izPack-4.3.4</dir>
-        </izPack>
-        <launch4j>
-            <dir>/opt/launch4j-3.0.2</dir>
-        </launch4j>
+        <izPack>/opt/izPack-4.3.4</izPack>
+        <launch4j>/opt/launch4j-3.0.2</launch4j>
     </installer>
     <eXist>
         <!-- point this to the place where you installed exist -->
-        <home>/Applications/betterFORM-4.0</home>
+        <home>/Users/windauer/dev/eXist/exist-trunk</home>
         <!-- Leave this empty if you run eXist in root context -->
         <!-- If you use the betterform XRX bundle this is 'betterform' -->
         <context>/exist</context>

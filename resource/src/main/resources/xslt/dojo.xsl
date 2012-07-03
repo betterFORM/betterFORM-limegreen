@@ -82,7 +82,7 @@
 
     <xsl:variable name="default-hint-appearance" select="'bubble'"/>
 
-    <!--<xsl:variable name="include-betterform-css" select="if(contains(//body/@class,'no-bf-css')) then 'false' else 'true'" />-->
+    <xsl:variable name="include-betterform-css" select="if(contains(//xhtml:body/@class,'no-bf-css')) then 'false' else 'true'"  />
 
     <xsl:output method="xhtml" version="1.0" encoding="UTF-8" indent="no"
                 doctype-system="/resources/xsd/xhtml1-transitional.dtd"/>
@@ -138,11 +138,20 @@
         </head>
     </xsl:template>
 
+    <!--
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    include-xforms-css imports the default stylesheets.
+    This template can be overwritten when additional files are needed.
+    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    -->
     <xsl:template name="include-xforms-css">
         <!-- include betterForm default stylesheet -->
         <link rel="stylesheet" type="text/css" href="{$default-css}"/>
         <!--<xsl:if test="$include-betterform-css='true'">-->
+        <xsl:message>no bf css:<xsl:value-of select="$include-betterform-css"/></xsl:message>
+        <xsl:if test="$include-betterform-css!='false'">
             <link rel="stylesheet" type="text/css" href="{$betterform-css}"/>
+        </xsl:if>
         <!--</xsl:if>-->
     </xsl:template>
 
@@ -289,7 +298,7 @@
                                   select=".//xf:*[not(ancestor::*[namespace-uri()='http://www.w3.org/2002/xforms'])]
                                   [not(namespace-uri()='http://www.w3.org/2002/xforms' and local-name()='model')]"/>
 
-                    <xsl:message>Outermost Nodeset size:<xsl:value-of select="count($outermostNodeset)"/></xsl:message>
+                    <!-- <xsl:message>Outermost Nodeset size:<xsl:value-of select="count($outermostNodeset)"/></xsl:message> -->
                     <!-- detect how many outermost XForms elements we have in the body -->
                     <xsl:choose>
                         <xsl:when test="count($outermostNodeset) = 1">
@@ -687,18 +696,7 @@
         <xsl:variable name="lname" select="local-name()"/>
         <xsl:variable name="name" select="concat($data-prefix,@id)"/>
        <!-- TODO: DateTime -->
-        <xsl:variable name="incremental">
-            <xsl:choose>
-                <xsl:when test="$lname='input' and
-                            $datatype='date'
-                            ">
-                    <xsl:value-of select="if (exists(@incremental)) then @incremental else 'true'"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="if (exists(@incremental)) then @incremental else 'false'"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <xsl:variable name="incremental"><xsl:value-of select="if (exists(@incremental)) then @incremental else 'false'"/></xsl:variable>
         <xsl:variable name="incrementaldelay">
         	<xsl:value-of select="if (exists(@bf:incremental-delay)) then @bf:incremental-delay else '0'"/>
         </xsl:variable>

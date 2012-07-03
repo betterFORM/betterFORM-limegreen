@@ -148,6 +148,18 @@ a:active {
     .xsdDateTime .dijitError {
         background: #FFFFFF url("@{image-url}/validationInputBg.png") repeat-x scroll left top;
     }
+    .bfValueWrapper .xfTimeControl{
+        display:inline-block;
+
+        .dijitComboBox {
+            width: 18px;
+        }
+
+        .dijitButtonNode {
+            display:none;
+        }
+
+    }
 }
 
 .dijitError .dijitValidationIcon,
@@ -233,7 +245,6 @@ a:active {
 }
 
 .bf .bfInvalidControl .xfValue,
-.bf .bfInvalidControl .select1wrapper,
 .bf .bfInvalidControl .xfDateTextBox,
 .bf .bfInvalidControl .xfTimeTextBox {
 	border: 1px solid @invalid-color !important;
@@ -246,7 +257,6 @@ a:active {
 }
 
 /* Keep styling for Selects even if invalid */
-.bf .bfInvalidControl .select1wrapper .xfValue,
 .bf .bfInvalidControl .xfValue .xfSelectorItem .xfRadioValue  {
     border: 0 none !important;
 }
@@ -531,11 +541,12 @@ alert + hints should always be aligned with the control.
         display: block;
         margin-top:10px;
         margin-bottom:10px;
-    }
 
-    .xfLabel {
-        width: 10em;
-        float: left;
+
+        .xfLabel {
+            width: 10em;
+            float: left;
+        }
     }
 
     .xfAlert{
@@ -550,7 +561,10 @@ alert + hints should always be aligned with the control.
         text-align: left;
         width: 160px;
         vertical-align: top;
-        display: block; /*float:left;*/
+        display: block;
+        /*Commenting this out breaks fullgroup layout*/
+        float: left;
+        margin-top: 0;
     }
 
 
@@ -585,34 +599,7 @@ alert + hints should always be aligned with the control.
     position: relative;
     top: 5px;
 }
-/* apply custom style to Select1 appearance="minimal" */
-.bf .xfSelect1 .select1wrapper {
-    background-color: white;
-    background-image: url("@{image-url}/dropdownButton.png");
-    background-position: right center;
-    background-repeat: no-repeat;
-    border: 1px solid lightGray;
-    display: inline-block;
-    height: 16px;
-    overflow: hidden;
-    position: relative;
-    /*top: 5px;*/
-    width: 120px;
-}
 
-/* reset top:5px for horizontal layout */
-.bf .bfHorizontalTableValue .select1Min .select1wrapper,
-.bf .xfCompactRepeat .xfSelect1 .select1wrapper{
-    top:0;
-}
-.bf .xfSelect1 .select1wrapper select {
-    background: none repeat scroll 0 0 transparent;
-    border: 0 none;
-    font-size: 12px;
-    height: 15px;
-    padding: 0;
-    width: 140px;
-}
 
 .xfFullGroup .xfControl .xfValue {
     /*  conflicts with repeat
@@ -1017,6 +1004,7 @@ table > .bfPending .xfRepeatIndex {
     height: 500px;
     border:thin solid @borderColor1;
     width: 280px;
+    box-shadow:10px 10px 5px #aaaaaa;
 
     #logControls{
         background:@repeat-index-color;
@@ -1026,11 +1014,13 @@ table > .bfPending .xfRepeatIndex {
         border-bottom: thin solid @borderColor1;
         position: absolute;
         height: 26px;
+        cursor:move;
 
         a{
             text-decoration: none;
             width: 26px;
             height: 26px;
+            cursor: pointer;
         }
 
         #switchLog{
