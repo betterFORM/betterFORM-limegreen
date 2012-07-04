@@ -127,7 +127,17 @@ dependencies = {
             dependencies: [
                 "betterform.BfRequiredXFormsEditor"
             ]
-        }
+        },
+	{
+		name: "../betterform/betterform-Ziziphus.js",
+		resourceName: "betterform.ziziphus",
+		layerDependencies: [
+			"betterform.full"
+		],
+		dependencies: [
+			"betterform.BfRequiredZiziphus"
+		]
+	}
     ],
 
     prefixes: [
