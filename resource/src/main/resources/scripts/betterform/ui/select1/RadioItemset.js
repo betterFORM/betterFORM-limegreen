@@ -96,7 +96,7 @@ dojo.declare(
 
         if (outputControls != undefined && outputControls != "") {            
             for (var index = 0; index <= outputControls.length; index++) {
-                var item = outputControls[i].cloneNode(true);
+                var item = outputControls[index].cloneNode(true);
 
                 dojo.attr(item, "id", generatedIds[item.id]);
                 dojo.attr(item, "parentId", myParentNode.id);
