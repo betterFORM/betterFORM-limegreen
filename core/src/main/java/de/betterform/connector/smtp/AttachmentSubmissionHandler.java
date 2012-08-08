@@ -93,7 +93,7 @@ public class AttachmentSubmissionHandler extends AbstractConnector implements Su
                 encoding = submission.getEncoding();
             }
 
-            Element mailMessage = (Element) DOMUtil.getFirstChildByTagName(instance, "body");
+            Element mailMessage = (Element) DOMUtil.getFirstChildByTagName(instance, "mailmessage");
             if(mailMessage == null){
                 throw new XFormsException("This handler only supports instances with a fixed structure that uses the 'http://betterform.de/mailmessage' namespace. Please see API Docs for details.");
             }
