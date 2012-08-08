@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mailmessage xmlns="http://betterform.de/mailmessage">
+<mailmessage>
     <body>The message of this mail</body>
     <attachments>
         <attachment name="one.html">
-            <html xmlns="http://www.w3.org/1999/xhtml">
+            <html>
                 <head>
                     <title>test a</title>
                 </head>
@@ -13,7 +13,7 @@
             </html>
         </attachment>
         <attachment name="two.html">
-            <html xmlns="http://www.w3.org/1999/xhtml">
+            <html>
                 <head>
                     <title>test b</title>
                 </head>
@@ -23,7 +23,7 @@
             </html>
         </attachment>
         <attachment name="three.html">
-            <html xmlns="http://www.w3.org/1999/xhtml">
+            <html>
                 <head>
                     <title>test c</title>
                 </head>
