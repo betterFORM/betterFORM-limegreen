@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mailmessage xmlns="http://betterform.de/mailmessage">
+    <body>The message of this mail</body>
+    <attachments>
+        <attachment name="one.html">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>test a</title>
+                </head>
+                <body>
+                    This is a test attachment
+                </body>
+            </html>
+        </attachment>
+        <attachment name="two.html">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>test b</title>
+                </head>
+                <body>
+                    This is a test attachment
+                </body>
+            </html>
+        </attachment>
+        <attachment name="three.html">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>test c</title>
+                </head>
+                <body>
+                    This is a test attachment
+                </body>
+            </html>
+        </attachment>
+    </attachments>
+</mailmessage>

@@ -1130,6 +1130,7 @@ public class Submission extends BindingElement implements DefaultAction {
     }
 
     private Map<String, Object> constructEventInfo(Map response) throws XFormsException {
+        if(response == null) return null;
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		final Document ownerDocument = this.element.getOwnerDocument();

@@ -60,6 +60,23 @@ import java.util.StringTokenizer;
  * </pre>
  * Since mail accounts are personal data, there is no example form demonstrating SMTP submission.
  *
+ *
+ * <p/><p/>
+ * Extension to support multipart messages. <p/>
+ * <pre>
+ * &lt;mailmessage xmlns="http://betterform.de/mailmessage"&gt;
+ *       &lt;body&gt;The message of this mail&lt;/body&gt;
+ *       &lt;attachments&gt;
+ *           &lt;attachment name="PatientAddress.html"&gt;
+ *               &lt;content/&gt;
+ *           &lt;/attachment&gt;
+ * </pre>
+ * <p/>
+ *
+ * When using the above format this handler will create a single attachment for every attachment element found. The
+ * value of @name will be used as a filename for the attachment.
+ * <p/>
+ *
  * @author Ulrich Nicolas Liss&eacute;
  * @version $Id: SMTPSubmissionHandler.java 3479 2008-08-19 10:44:53Z joern $
  */
@@ -70,6 +87,7 @@ public class SMTPSubmissionHandler extends AbstractConnector implements Submissi
      * The logger.
      */
     private static final Log LOGGER = LogFactory.getLog(SMTPSubmissionHandler.class);
+    public static final String BETTERFORM_MAIL = "http://betterform.de/mailmessage";
 
     /**
      * Serializes and submits the given instance data over the <code>mailto</code> protocol.
@@ -94,6 +112,12 @@ public class SMTPSubmissionHandler extends AbstractConnector implements Submissi
             String encoding = getDefaultEncoding();
             if (submission.getEncoding() != null) {
                 encoding = submission.getEncoding();
+            }
+
+            if(DOMUtil.getFirstChildByTagNameNS(instance,BETTERFORM_MAIL,"mailmessage") != null){
+                if(LOGGER.isDebugEnabled()){
+                    LOGGER.debug("found betterFORM mailmessage");
+                }
             }
 
             SerializerRequestWrapper wrapper = new SerializerRequestWrapper(new ByteArrayOutputStream());

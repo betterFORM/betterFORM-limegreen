@@ -200,7 +200,6 @@
         build deployment structure (exploded war) - creates bare-bone structure of webapp with:
         - dashboard.html (should be moved to resources too)
         - blank.html (needed by Dojo loader)
-        - jsp folder (should be eliminated)
         - an empty upload dir (preconfigured directory)
         - WEB-INF with config-files
 
@@ -302,7 +301,7 @@
             <!-- todo: need a better solution here - not all libs form web/src/main/lib are runtime relevant.
                 Therefore only needed libs are copied directly here.
 			-->
-            <fileset dir="${basedir}/src/main/lib" excludes="**/${core.app.name}-${core.app.version}.jar">
+            <fileset dir="${basedir}/src/main/lib" excludes="**/${core.app.name}-${app.version}.jar">
                 <include name="**/dwr*"/>
             </fileset>
         </copy>
