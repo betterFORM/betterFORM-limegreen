@@ -403,9 +403,15 @@ Error: eXist is not installed in ${eXist.home}.
         <move file="${betterFORM.extension}/target/WEB-INF/lib/betterform.jar" tofile="${betterFORM.libs}/betterform.jar"/>
 
         <!-- ehcache 2.5.2: remove me when exist has been updated -->
-        <delete file="${betterFORM.extension}/target/WEB-INF/lib/ehcache-1.6.2.jar"/>
+        <delete file="${betterFORM.libs}/ehcache-1.6.2.jar"/>
         <copy file="${core.dir}/src/main/lib/ehcache-core-2.5.2.jar" todir="${betterFORM.libs}"/>
         <copy file="${core.dir}/src/main/lib/slf4j-api-1.6.1.jar" todir="${betterFORM.libs}"/>
+
+        <!-- commons-lang 3 -->
+        <delete file="${betterFORM.extension}/target/WEB-INF/lib/ehcache-1.6.2.jar"/>
+        <delete file="${eXist.home}/lib/optional/commons-lang-2.6.jar" />
+        <copy file="${core.dir}/src/main/lib/commons-lang3-3.1.jar" todir="${eXist.home}/lib/optional/"/>
+
         <move file="${betterFORM.extension}/target/WEB-INF/classes/ehcache.xml" todir="${eXist.home}/webapp/WEB-INF/classes/"/>
 
 
