@@ -122,6 +122,7 @@ public class MessageBuilder {
 
         Session session = Session.getInstance(properties, new SMTPAuthenticator(username, password));
         MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(sender));
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(recipient));
         message.setSubject(subject);
         message.setSentDate(new Date());
